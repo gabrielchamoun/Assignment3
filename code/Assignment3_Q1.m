@@ -27,7 +27,6 @@ vT = sqrt((2*kB*Temp)/mn);
 toggleScatter = 1;    % Toggle Scattering OFF(0) ON(1)
 tmin = 0.2e-12;
 pScatter = 1 - exp(-dt/tmin);
-scatterTracker = zeros(nt, eCount);
 
 % Electric Field Settings
 constV = 0.5;       % Constant voltage applied
@@ -66,9 +65,6 @@ while t < tStop
         if pScatter > rand() && toggleScatter	% 'if true'
             eObj(i).vx = (sqrt(vT^2 / 2)*randn(1,1));
             eObj(i).vy = (sqrt(vT^2 / 2)*randn(1,1));
-            scatterTracker(counter,i) = t;
-        else
-            scatterTracker(counter,i) = scatterTracker(counter-1,i);
         end
         
         % Updating the velocities with the effect of E-Field
@@ -123,7 +119,7 @@ while t < tStop
     Temp(:,counter) = mean(allTemperatures);
     
     % Calculating drift current density over time
-    Jnx(:,counter) = qe*eCount*mean([eObj(:).vdx]);
+    Jnx(:,counter) = qe*10e19*mean([eObj(:).vdx]);
     
     Time(:,counter) = t;        % Recording time in a vector
     counter = counter + 1;      % Incrementing Sim Counter

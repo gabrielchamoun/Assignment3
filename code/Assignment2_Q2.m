@@ -3,8 +3,8 @@ function [V] = Assignment2_Q2(nx, ny, boxL, boxW, sigma)
     % Conductivity Map
     global cMap
     cMap = ones(nx,ny);
-    cMap(nx/2 - boxL/2:nx/2 + boxL/2,1:boxW) = sigma;
-    cMap(nx/2 - boxL/2:nx/2 + boxL/2,ny-boxW:ny) = sigma;
+    cMap(round(nx/2 - boxL/2):round(nx/2 + boxL/2),1:round(boxW)) = sigma;
+    cMap(round(nx/2 - boxL/2):round(nx/2 + boxL/2),round(ny-boxW):ny) = sigma;
     
     G = sparse(nx*ny,ny*nx);
     F = zeros(nx*ny,1);
